@@ -1,0 +1,541 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Congresso ALUBRAT 2017 - 6, 7 e 8 de Outubro - Tomar, Portugal</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'main/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/bower_components/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/assets/css/main.css' %}">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-90140111-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+</head>
+<body data-spy="scroll" data-target="#site-nav" >
+    <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
+        <div class="container">
+                            <!--div style='text-align: right;color:white;'> <a style='text-align: right;color:white;' href="">Pt</a>|<a style='text-align: right;color:white;' href="">En </a></div>
+                            -->
+
+            <div class="navbar-header">
+
+                <!-- logo -->
+                <div class="site-branding">
+
+                    <a class="logo" href="/">
+                        
+                        <!-- logo image  -->
+                        <img width=100 src="{% static 'main/assets/images/logoAL2017.png' %}" alt="Logo">
+                        {{siteInfo.title}}  
+                        <!--{{siteInfo.tagLine}} -->
+                        
+                    </a>
+                    
+                    <!--h5 style="color:white;">{{siteInfo.tagLine}}</h5-->
+                    <h5 style="color:white;"> </h5>
+                    <span style="color:white;">
+                    <!--siteInfo.bgImage: {{siteInfo.bgImage}}-->
+                    <!--img src="{{ siteInfo.bgImage }}" /-->
+                    </span>
+
+                </div>
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-items" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div><!-- /.navbar-header -->
+            
+            <div class="_collapse navbar-collapse" id="navbar-items">
+                {% if isLogged %}
+                    <span class = "welcomeTitle">Welcome {{userName | title}}.</span>
+                {% endif %}
+                <ul class="nav navbar-nav navbar-right">
+
+                    <!-- navigation menu -->
+                    <li class="active"><a   title="Home"  href="/">Home</a></li>              
+
+                    {% for item in menuItems %}
+                            {% if item.loggedOnly == 1 %}
+                                {% if  isLogged > 0 %}
+                                    {% if item.linkTo %}
+                                        <li ><a  href="{{item.linkTo}}">{{item.menuItemDescription}}</a></li>
+                                    {% else %}
+                                        <li ><a data-scroll href="#{{item.menuItem}}">{{item.menuItemDescription}}</a></li>
+                                    {% endif %}
+
+                                {% endif %}
+                            {% else %}
+                                {% if item.linkTo %}
+                                        <li ><a  href="{{item.linkTo}}">{{item.menuItemDescription}}</a></li>
+                                    {% else %}
+                                        <li ><a data-scroll href="#{{item.menuItem}}">{{item.menuItemDescription}}</a></li>
+                                {% endif %}
+                            {% endif %}
+                    {% endfor %}
+                    <!--
+                    <li class="active">
+                    <li><a data-scroll href="#speakers">Speakers</a></li>              
+                    <li><a data-scroll href="#schedule">Schedule</a></li>                  
+                    <li><a data-scroll href="#partner">Partner</a></li>                  
+                    -->
+                    <!-- <li><a data-scroll href="#">Sponsorship</a></li> -->
+                    <!--
+                    <li><a data-scroll href="#faq">FAQ</a></li>
+                    <li><a data-scroll href="#photos">Photos</a></li>
+                    -->
+                
+                </ul>
+                
+            </div>
+        </div><!-- /.container -->
+    </nav>
+
+
+    <header id="site-header" class="site-headerReg valign-center"> 
+        <div class="introReg">
+
+            <p>6, 7 e 8 de Outubro de 2017 / Hotel dos Templários, Tomar - 
+            X Congresso ALUBRAT 
+            
+            - Espiritualidade: Ciência e Vivência
+             - Associação Luso-Brasileira de Transpessoal 
+
+            </p>
+            
+            <h1>CFP - Call For Papers</h1>
+            
+        </div>
+
+    </header>
+    <section id="inscricao" class="section1 registration1"  
+        
+        {% if isLogged %}
+            style="display:inline;";
+        {% else %}
+            style="display:inline";
+        {% endif %}
+        
+        >
+        <div class="container"> 
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title"><br />CFP - Call For Papers</h3>
+                </div>
+            </div>
+                
+            <form  action="#" id="registration-form"> 
+                {% csrf_token %}
+                <input type="hidden" class="form-control"  id="invoiceOther" name="invoiceOther"   value="0">
+                <input type="hidden" class="form-control"  id="confirmData" name="confirmData"   value="0">
+                <input type="hidden" class="form-control"  id="recordId" name="recordId"   value="0">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- AntiSmpa -->
+                        <div class="form-group" style="heigth:0;">
+                            <input type="hidden"  placeholder="" id="validityCheck" name="validityCheck" value="">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="*Nome" id="name" name="name" required  value="">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="*Apelido" id="lname" name="lname" required  value="">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="*Endereço Email **Válido**" id="email" name="email" required  value="">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="*Contacto telefónico 1" id="cell" name="cell" required  value="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Contacto telefónico 2" id="phone" name="phone"   value="">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="*Morada" id="address" name="address" required  value="">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="*Código Postal/CEP" id="zipCode" name="zipCode" required value="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="*Localidade" id="city" name="city" required value="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="*País" id="country" name="country" required value="">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="*NIF/CPF" id="nif" name="nif"  value="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <!-- Modalidade e ModPag -->
+                            <span>*<strong>Modalidade:</strong></span>
+                             <select class="form-control" name="modalidade" id="modalidade" required>
+                                <option value="">Selecione a sua opção</option>
+                                <option value="2 noites, quarto duplo">2 noites, quarto duplo €220,00 EUR</option>
+                                <option value="2 noites, quarto individual">2 noites, quarto individual €270,00 EUR</option>
+                                <option value="1 noite, quarto duplo">1 noite, quarto duplo €120,00 EUR</option>
+                                <option value="1 noite, quarto individual">1 noite, quarto individual €145,00 EUR</option>
+                            </select> 
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <span>*<strong>Forma de Pagamento:</strong></span>
+                            <!-- Modalidade e ModPag -->
+                             <select class="form-control" name="modPag" id="modPag" required>
+                                <option value="">Selecione a sua opção</option>
+                                <option value="transferencia">Transferência Bancária (Podem ocorrer sobrecustos para transferências a partir de países não-UE)</option>
+                                <option value="paypal">PayPal (Taxa de 3,4% + 0,35 EUR)</option>
+                            </select> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label for="remarks">Observações, Pedidos Especiais, recomendações:</label>
+                         <textarea class="form-control" rows="5" name="remarks" id="remarks"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <br />
+                    <div class="col-sm-12"> 
+                        <div class="alert-info" style="padding:15px;"">
+                            <strong>Possíveis custos adicionais ao Pagamento: </strong>
+
+                            <div class="row">
+                                <div class="col-sm-6"> 
+                                    <div class="alert-info" style="padding:15px;"">Em caso de <strong>pagamento por PayPal</strong>, aos valores apresentados acresce 3,4% + 0,35 EUR</div>
+                                </div>    
+                                <div class="col-sm-6"> 
+                                    <div class="alert-info" style="padding:15px;"">Em caso de <strong>pagamento por Transferência Bancária</strong>, podem ocorrer sobrecustos para transferências a partir de países não-UE</div>
+                                </div>    
+                            </div>    
+                        </div>    
+
+                    </div>    
+                </div>    
+  
+                <div class="row">
+                    <!-- Other invoice data Button -->
+                    <br />
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-green" id="invoice_other_data">Facturar em nome de outra entidade </button>
+                        <span id="invoiceOther_Msg"> << Clique para inserir os dados de outra entidade a quem emitir a factura.</span>
+                    </div>
+                </div>
+
+                <div id="invoice_other_data_fields" style="display:none;">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="section-title"><br />Emitir Factura a:</h3> 
+                    </div>
+                </div>
+
+
+                <!-- Other invoice data -->
+                
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control form2" placeholder="*Nome da Empresa" id="f2fname" name="f2fname"   value="">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" class="form-control form2" placeholder="*Endereço Email **Válido**" id="f2email" name="f2email"   value="">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Contacto telefónico 1" id="f2cell" name="f2cell"  value="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Contacto telefónico 2" id="f2phone" name="f2phone"   value="">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control  form2" placeholder="*Morada" id="f2address" name="f2address"   value="">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control form2" placeholder="*Código Postal/CEP" id="f2zip" name="f2zip"  value="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form2" placeholder="*Localidade" id="f2city" name="f2city"  value="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form2" placeholder="*País" id="f2country" name="f2country"  value="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form2" placeholder="*NIF/CPF" id="f2nif" name="f2nif"  value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12" id="registration-msg" style="display:none;">
+                        <div class="alert">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt20">
+                    <span class="hideAtEnd"><i>Campos assinalados com '*' são mandatórios.</i></span><br />
+                    <button type="submit" class="btn btn-black " id="registration-submit-btn">Inscrever</button>
+                    
+                    <button  style="display:none;" type="button" class="btn btn-black" id="change-btn" onClick="javascript:reviewInfo();">Rever / Alterar Informação</button> 
+                    <br />
+                    <br />
+                    <span class="hideAtEnd" id="continueToPay" style="display:none;">
+                        <!--div id="contToPag"--> 
+                        <!--br />Ou Continuar para Pagamento: </div-->
+                        <!--div> 
+                            PayPal: <input name="payButton" class="pay"type="radio" onClick="javaScript:payPayPal();" /> 
+                            Transferência bancária: <input name="payButton" class="pay" type="radio" onClick="javaScript:payTrf();" />    
+                        </div-->
+                        <button  style="display:inline;" type="button" class="btn btn-black" id="confirm-btn" onClick="javascript:confirmInscr(); ">Confirmar Inscrição e proceder para pagamento</button> 
+                        <!--br />
+                        <br /-->
+                    
+
+                    </span>
+                </div>
+            </form>
+            
+            <div class="row" id="payPalForm" 
+                {% if payPalForm > 0 %}
+                    style="display:inline";
+                {% else %}
+                    style="display:none";
+                {% endif %}
+            > 
+                <div class="col-md-8">
+                <span ><strong>Pagamento por PayPal: </strong></span>       
+
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input class="pay" type="hidden" name="cmd" value="_s-xclick">
+                        <input class="pay" type="hidden" name="hosted_button_id" value="YNDZ58GJ5M7XC">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input class="pay" type="hidden" name="on0" value="Congresso e Alojamento:">Congresso e Alojamento:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select class="pay" id="os0" name="os0">
+                                        <option class="pay" value="2 noites, quarto duplo">2 noites, quarto duplo €228,05 EUR</option>
+                                        <option class="pay" value="2 noites, quarto individual">2 noites, quarto individual €279,80 EUR</option>
+                                        <option class="pay" value="1 noite, quarto duplo">1 noite, quarto duplo €124,55 EUR</option>
+                                        <option class="pay" value="1 noite, quarto individual">1 noite, quarto individual €150,43 EUR</option>
+                                        <!--option class="pay payTest" value="Teste">Teste €0,10 EUR</option-->
+                                    </select>
+                                    <br />Já incluída taxa 3,4% + 0,35 EUR
+                                </td>
+                            </tr>
+                        </table>
+                        <input class="pay" type="hidden" name="currency_code" value="EUR">
+                        <input class="pay" type="image" src="https://www.paypalobjects.com/pt_PT/i/btn/btn_paynow_LG.gif" border="0" name="submit" alt="PayPal - A forma mais fácil e segura de efetuar pagamentos online!">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/pt_PT/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                    <!-- 
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="YNDZ58GJ5M7XC">
+<table>
+<tr><td><input type="hidden" name="on0" value="Congresso e Alojamento:">Congresso e Alojamento:</td></tr><tr><td><select id="os0" name="os0">
+    <option value="2 noites, quarto duplo">2 noites, quarto duplo €228,05 EUR</option>
+    <option value="2 noites, quarto individual">2 noites, quarto individual €279,80 EUR</option>
+    <option value="1 noite, quarto duplo">1 noite, quarto duplo €124,55 EUR</option>
+    <option value="1 noite, quarto individual">1 noite, quarto individual €150,43 EUR</option>
+    <option value="Teste">Teste €0,10 EUR</option> ect> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="EUR">
+<input type="image" src="https://www.paypalobjects.com/pt_PT/i/btn/btn_paynow_LG.gif" border="0" name="submit" alt="PayPal - A forma mais fácil e segura de efetuar pagamentos online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/pt_PT/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+
+
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="YNDZ58GJ5M7XC">
+<table>
+<tr><td><input type="hidden" name="on0" value="Congresso e Alojamento:">Congresso e Alojamento:</td></tr><tr><td><select name="os0">
+    <option value="2 noites, quarto duplo">2 noites, quarto duplo €228,05 EUR</option>
+    <option value="2 noites, quarto individual">2 noites, quarto individual €279,80 EUR</option>
+    <option value="1 noite, quarto duplo">1 noite, quarto duplo €124,55 EUR</option>
+    <option value="1 noite, quarto individual">1 noite, quarto individual €150,43 EUR</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="EUR">
+<input type="image" src="https://www.paypalobjects.com/pt_PT/i/btn/btn_paynow_LG.gif" border="0" name="submit" alt="PayPal - A forma mais fácil e segura de efetuar pagamentos online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/pt_PT/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+
+
+                    -->
+                    <!--
+                   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input class="pay" type="hidden" name="cmd" value="_s-xclick">
+                        <input class="pay" type="hidden" name="hosted_button_id" value="YNDZ58GJ5M7XC">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input class="pay" type="hidden" name="on0" value="Congresso e Alojamento">Congresso e Alojamento</td></tr><tr><td>
+                                    <select class="pay" class="pay" id="os0" name="os0">
+                                        <option readonly>Por favor escolha</option>
+                                        <option class="pay" value="2 noites, quarto duplo">2 noites, quarto duplo €220,00 EUR</option>
+                                        <option class="pay" value="2 noites, quarto indivudual">2 noites, quarto individual €270,00 EUR</option>
+                                        <option class="pay" value="1 noite, quarto duplo">1 noite, quarto duplo €120,00 EUR</option>
+                                        <option class="pay"  value="1 noite, quarto indivudual">1 noite, quarto indivudual €145,00 EUR</option>
+                                    </select> 
+                                    <br />Pagamento por PayPal: aos valores apresentados acrescem 3,4% + 0,35 EUR 
+                                </td>
+                            </tr>
+                        </table>
+                        <input class="pay" type="hidden" name="currency_code" value="EUR">
+                        <input class="pay" type="image" src="https://www.paypalobjects.com/pt_PT/i/btn/btn_paynow_LG.gif" border="0" name="submit" alt="PayPal - A forma mais fácil e segura de efetuar pagamentos online!">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/pt_PT/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                     -->        
+                </div>
+            </div>
+            
+            <hr />
+        
+            <div id="payTrf" style="display:none;"> 
+                <div class="row"  > 
+                <span ><strong>Pagamento por Transferência Bancária: </strong></span>
+                        <div class="col-md-12">
+                            Efectue a sua transferência para o IBAN <strong>PT50 0018 000316898827020 83 </strong>no valor correspondente à sua modalidade de inscrição.  
+
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-12">       
+                            <p><br />Envie depois o comprovativo para o email <strong>pagamentos@alubrat.pt</strong> para finalizar a sua inscrição.
+                             
+                            </p>
+                        </div>
+                </div>
+            </div>
+            
+            <div class="payInfo" style="display:none;"> 
+                <div class="row">
+                    <br />
+                    <div class="col-sm-12"> 
+                        <div class="alert-info" style="padding:15px;"">
+                            <strong>Efectivação da sua Inscrição: </strong>
+
+                            <div class="row">
+                                <div class="col-sm-12"> 
+                                    <div class="alert-info" style="padding:15px;"">
+                                        O seu registo de inscrição está efectivado, a aguardar confirmação do pagamento <br />
+                                        Após efectuar o seu pagamento, por favor <strong>envie o comprovativo respectivo </strong>para  <strong>pagamentos@alubrat.pt</strong>. <br />
+                                        Gratos. <br />
+                                        A Comissão Organizadora do Congresso ALUBRAT 2017. <br />
+                                    </div>
+                                </div>    
+                            </div>    
+                        </div>    
+
+                    </div>    
+                </div>
+            </div>
+            
+            <hr />
+            </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+    <section id="contactos" class="section location">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <h3 class="section-title">{{contactos.title}}</h3>
+                    <h4 class="section-title">{{contactos.lid1 | safe}}</h4>
+
+                    <p>{{contactos.content1 | safe}}</p>
+
+                    <!--figure>
+                        <img alt="" class="img-responsive" src="{% static 'main/assets/images/about-us.jpg' %}">
+                    </figure-->
+
+                </div><!-- /.col-sm-6 -->
+
+                <div class="col-sm-6">
+
+                    <h3 class="section-title multiple-title">{{contactos.lid2 | safe}}</h3>
+
+                    <p>{{contactos.content2 | safe}}</p>
+
+
+                </div><!-- /.col-sm-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="site-info">Site created by ALUBRAT Portugal <br />Template Designed and <br> Developed by <a href="http://technextit.com">Technext Limited</a> and kindly made available for free - Thanks to them! :-)</p>
+                    <ul class="social-block">
+                        <li><a href=""><i class="ion-social-twitter"></i></a></li>
+                        <li><a href=""><i class="ion-social-facebook"></i></a></li>
+                        <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
+                        <li><a href=""><i class="ion-social-googleplus"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- script -->
+    <script src="{% static 'main/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'main/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'main/bower_components/smooth-scroll/dist/js/smooth-scroll.min.js' %}"></script>
+    <script src="{% static 'main/assets/js/main.js' %}"></script>
+</body>
+</html>

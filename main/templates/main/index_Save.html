@@ -1,0 +1,795 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Congresso Alubrat 2017 - 9-10 Out, Tomar, Portugal</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'main/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/bower_components/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/assets/css/main.css' %}">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-90140111-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+</head>
+<body data-spy="scroll" data-target="#site-nav" >
+    <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
+        <div class="container">
+                            <!--div style='text-align: right;color:white;'> <a style='text-align: right;color:white;' href="">Pt</a>|<a style='text-align: right;color:white;' href="">En </a></div>
+                            -->
+
+            <div class="navbar-header">
+
+                <!-- logo -->
+                <div class="site-branding">
+
+                    <a class="logo" href="/">
+                        
+                        <!-- logo image  -->
+                        <img width=100 src="{% static 'main/assets/images/logoAL2017.png' %}" alt="Logo">
+                        {{siteInfo.title}}  
+                        <!--{{siteInfo.tagLine}} -->
+                        
+                    </a>
+                    
+                    <!--h5 style="color:white;">{{siteInfo.tagLine}}</h5-->
+                    <h5 style="color:white;"> </h5>
+                    <span style="color:white;">
+                    <!--siteInfo.bgImage: {{siteInfo.bgImage}}-->
+                    <!--img src="{{ siteInfo.bgImage }}" /-->
+                    </span>
+
+                </div>
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-items" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div><!-- /.navbar-header -->
+            
+            <div class="_collapse navbar-collapse" id="navbar-items">
+                {% if isLogged %}
+                    <span class = "welcomeTitle">Welcome {{userName | title}}.</span>
+                {% endif %}
+                <ul class="nav navbar-nav navbar-right">
+
+                    <!-- navigation menu -->
+                    <li class="active"><a data-scroll href="/">Home</a></li>              
+
+                    {% for item in menuItems %}
+                        {% if item.loggedOnly == 1 %}
+                            {% if  isLogged > 0 %}
+                                <li ><a data-scroll href="#{{item.menuItem}}">{{item.menuItemDescription}}</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li ><a data-scroll href="#{{item.menuItem}}">{{item.menuItemDescription}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <!--
+                    <li class="active">
+                    <li><a data-scroll href="#speakers">Speakers</a></li>              
+                    <li><a data-scroll href="#schedule">Schedule</a></li>                  
+                    <li><a data-scroll href="#partner">Partner</a></li>                  
+                    -->
+                    <!-- <li><a data-scroll href="#">Sponsorship</a></li> -->
+                    <!--
+                    <li><a data-scroll href="#faq">FAQ</a></li>
+                    <li><a data-scroll href="#photos">Photos</a></li>
+                    -->
+                
+                </ul>
+                
+            </div>
+        </div><!-- /.container -->
+    </nav>
+
+
+    <header id="site-header" class="site-header valign-center"> 
+        <div class="intro">
+
+            <h2>6, 7 e 8 de Outubro de 2017 / Hotel dos Templários, Tomar</h2>
+            
+            <h1>X Congresso ALUBRAT</h1>
+            
+            <p>Espiritualidade: Ciência e Vivência</p>
+            <p>Associação Luso-Brasileira de Transpessoal </p>
+            
+            <!--a class="btn btn-white" data-scroll href="#oradores">Participantes</a-->
+            <a class="btn btn-white" data-scroll href="#apresentacao">Apresentação do X Congresso</a>
+            <!--a class="btn btn-white" data-scroll href="#registration">Register Now</a-->
+            {#<!--
+            {% if isLogged %}
+            <p class="frontChoiceTop">
+
+                <span class="frontChoice">
+                    <a href="#oradores">
+                    <img src="{% static 'main/assets/images/iconImgs/oradores.png' %}" /> 
+                    Oradores
+                    </a>
+                </span>
+
+                <span class="frontChoice">
+                    <a href="#localizacao">
+                    <img src="{% static 'main/assets/images/iconImgs/hotel.png' %}" /> 
+                    Hotel
+                    </a>
+                </span>
+
+                <span class="frontChoice">
+                    <a href="#locaisdeinteresse">
+                    <img src="{% static 'main/assets/images/iconImgs/locais.png' %}" /> 
+                    Locais de Interesse
+                    </a>
+                </span>
+
+            </p>
+            {% endif %}
+            -->#}
+
+        </div>
+    </header>
+
+    {% if oradores %}
+        <section id="oradores" class="section speakers" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <h3 class="section-title">Oradores</h3>
+                    
+                    </div>
+                </div>
+                <div class="row">
+                {% for item in oradores %}
+                    
+                        <div class="col-md-4">
+                            <div class="speaker">
+								
+                                <h4>{{item.title}}</h4>
+
+                                <!--figure style="text-align:center; height: 290px; width: 220px;"-->
+                                <figure>
+<<<<<<< HEAD
+									{% if isLogged %}
+                                      <img data-toggle="modal" data-target="#orador-{{item.id}}" alt="{{item.title}}" class="img-responsive center-block" src="/media/{{item.image}}">
+                                    {% else %}
+                                       <img data-toggle="modal" alt="{{item.title}}" class="img-responsive center-block" src="/media/{{item.image}}">
+                                    {% endif %}
+=======
+                                      <img data-toggle="modal" data-target="#orador-{{item.id}}" alt="{{item.title}} - Clique para Ver Mais" title="{{item.title}} - Clique para Ver Mais" class="img-responsive center-block" src="/media/{{item.image}}">
+>>>>>>> f71e97b5c7285d0113333ba7e25dbda94b08e541
+                                </figure>
+
+                                <h4>{{item.lid1}}</h4>
+                                <p>{{item.lid2}}</p>
+
+<<<<<<< HEAD
+								{% if isLogged %}
+
+								<!-- Trigger the modal with a button -->
+								<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#orador-{{item.id}}">Ver +</button>
+									{% if item.content3 %}
+										<!-- Trigger the modal with a button -->
+										<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#orador-cmn-{{item.id}}">Comunicaçáo</button>
+									{% endif %}
+								{% endif %}
+=======
+								{#% if isLogged %#}
+
+								<!-- Trigger the modal with a button -->
+								<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#orador-{{item.id}}">Ver +</button>
+									{#% if item.content3 %#}
+										<!-- Trigger the modal with a button -->
+										<!--button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#orador-cmn-{{item.id}}">Comunicaçáo</button-->
+									{#% endif %#}
+								{#% endif %#}
+>>>>>>> f71e97b5c7285d0113333ba7e25dbda94b08e541
+								
+                            </div><!-- /.speaker -->
+                        </div><!-- /.col-md-4 -->
+                        
+                        {% if forloop.counter|divisibleby:"3" %}
+                            </div><!-- /.row -->
+                            <div class="row">
+                        {% endif %}
+                    
+								<!-- Modal detalhe -->
+								<div id="orador-{{item.id}}" class="modal fade" role="dialog">
+								  <div class="modal-dialog">
+
+									<!-- Modal content-->
+									<div class="modal-content">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title text-center">{{item.title}} - {{item.lid1}} - {{item.lid2}}</h4>
+									  </div>
+									  <div class="modal-body">
+										  <figure>
+											<img alt="" class="img-responsive center-block" src="/media/{{item.image}}">
+										</figure>
+
+										<p style="text-transform:none; text-align: left !important;">{{item.content1|safe|linebreaks}}</p>
+
+<<<<<<< HEAD
+										{% if isLogged %}
+=======
+										{#% if isLogged %#}
+>>>>>>> f71e97b5c7285d0113333ba7e25dbda94b08e541
+											{% if item.content3 %}
+
+												<!-- Trigger the modal with a button -->
+												<p class="text-center">
+<<<<<<< HEAD
+												<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#orador-cmn-{{item.id}}">Comunicaçáo</button>
+												</p>
+											{% endif %}
+										{% endif %}
+
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+=======
+												<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#orador-cmn-{{item.id}}">Comunicaçáo</button>
+												</p>
+											{% endif %}
+										{#% endif %#}
+
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+>>>>>>> f71e97b5c7285d0113333ba7e25dbda94b08e541
+									  </div>
+									</div>
+
+								  </div>
+								</div>
+								<!-- End Modal -->
+
+
+								<!-- Modal CMN -->
+								<div id="orador-cmn-{{item.id}}" class="modal fade" role="dialog">
+								  <div class="modal-dialog">
+
+									<!-- Modal content-->
+									<div class="modal-content">
+									  <div class="modal-header text-center">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">{{item.title}} - Comunicação</h4>
+									  </div>
+									  <div class="modal-body">
+										  <figure>
+											<img alt="" class="img-responsive center-block" src="/media/{{item.image}}">
+										</figure>
+
+										<p>{{item.content3}}</p>
+
+
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+									  </div>
+									</div>
+
+								  </div>
+								</div>
+								<!-- End Modal -->
+
+                {% endfor %}
+                </div><!-- /.row -->
+
+
+        </section>
+    {% endif %}
+
+
+    <section id="apresentacao" class="section about">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <h3 class="section-title">{{apresentacao.title}}</h3>
+                    <h4 class="section-title">{{apresentacao.lid1 | safe}}</h4>
+
+                    <p>{{apresentacao.content1 | safe}}</p>
+
+                    <!--figure>
+                        <img alt="" class="img-responsive" src="{% static 'main/assets/images/about-us.jpg' %}">
+                    </figure-->
+
+                </div><!-- /.col-sm-6 -->
+
+                <div class="col-sm-6">
+
+                    <h3 class="section-title multiple-title">{{apresentacao.lid2 | safe}}</h3>
+
+                    <p>{{apresentacao.content2 | safe}}</p>
+
+                </div><!-- /.col-sm-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+
+    <section id="facts" class="section bg-image-1 facts text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+
+                    <i class="ion-ios-calendar"></i>
+                    <h3>2017<br>6, 7 e 8 de Outubro</h3>
+                
+                </div>
+                <div class="col-sm-3">
+
+                    <i class="ion-ios-location"></i>
+                    <h3>Hotel dos Templários - Tomar<br>Portugal</h3>
+                
+                </div>
+                <div class="col-sm-3">
+
+                    <i class="ion-pricetags"></i>
+                    <h3>150<br>Lugares</h3>
+                
+                </div>
+                <div class="col-sm-3">
+                
+                    <i class="ion-speakerphone"></i>
+                    <h3>12<br>Oradores</h3>
+                
+                </div>
+            </div><!-- row -->
+        </div><!-- container -->
+    </section>
+
+    <section id="inscricao" class="section registration"  
+		
+		{% if isLogged %}
+			style="display:inline;";
+		{% else %}
+			style="display:none";
+		{% endif %}
+		
+		>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Registration &amp; Pricing</h3>
+                </div>
+            </div>
+                
+            <form action="#" id="registration-form">
+                <div class="row">
+                    <div class="col-md-12" id="registration-msg" style="display:none;">
+                        <div class="alert"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="First Name" id="fname" name="fname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Last Name" id="lname" name="lname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Phone" id="cell" name="cell" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Address" id="address" name="address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Zip Code" id="zip" name="zip" required>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" name="city" id="city" required>
+                                <option readonly>City</option>
+                                <option>City Name 1</option>
+                                <option>City Name 2</option>
+                                <option>City Name 3</option>
+                                <option>City Name 4</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" name="program" id="program" required>
+                                <option readonly>Select Your Program</option>
+                                <option>Program Name 1</option>
+                                <option>Program Name 2</option>
+                                <option>Program Name 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt20">
+                    <button type="submit" class="btn btn-black" id="registration-submit-btn">Submit</button>
+                </div>
+            </form>
+            MyForm: <hr />
+            <form method='POST'>
+            {{ regForm }}
+            </form>
+            <hr />
+        </div>
+    </section>
+
+    <section id="contribution" class="section bg-image-2 contribution"  style="display:none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-uppercase mt0 font-400">Submit Your Contribution Work</h3>
+                    
+                    <p>You've inspired new consumer, racked up click-thru's, blown-up brand awareness. We can't give you back the weekends you worked, or erase the pain of being forced to make the logo bigger. But if you submit your best work.</p>
+
+                    <a class="btn btn-white" href="#">Submit</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% if schedule %}
+    <section id="programa" class="section schedule">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Estrutura do Programa do Congresso</h3>
+                </div>
+            </div>
+
+            {% for item in schedule %}
+
+                <div class="col-md-12">
+                    <h4 class="section-title">{{item.title}} - {{item.tagLine}}</h4>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="schedule-box">
+                            <h4>- Manhã</h4>
+                            {{item.content1|safe|linebreaks}}
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="schedule-box">
+                            <h4>- Tarde</h4>
+                            {{item.content2|safe|linebreaks}}
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="schedule-box">
+                            <h4>- Noite</h4>
+                            {{item.content3|safe|linebreaks}}
+                        </div>
+                    </div>
+                </div>
+                <br />
+            {% endfor %} 
+    </section>
+    {% endif %}
+
+    {% if valores %}
+
+        <section id="valores" class="section about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <h3 class="section-title">{{valores.title}}</h3>
+                        <h3 class="section-title multiple-title">{{valores.lid1 | safe}}</h3>       
+                        <p>{{valores.content1 | safe}}</p>
+
+                        <!--figure>
+                            <img alt="" class="img-responsive" src="{% static 'main/assets/images/about-us.jpg' %}">
+                        </figure-->
+
+                    </div><!-- /.col-sm-6 -->
+                    </div><!-- /.row -->
+
+                    <div class="col-md-12">
+                        <h3 class="section-title">&nbsp;</h3>
+                        <h3 class="section-title multiple-title">{{valores.lid2 | safe}}</h3>
+
+                        <p>{{valores.content2 | safe}}</p>
+                    </div><!-- /.col-sm-6 -->
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>{{valores.content3 | safe}}</p>                
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </section>
+
+    {% endif %}
+
+
+
+    <section id="partner" class="section partner"  style="display:none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Event Partner</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <a class="partner-box partner-box-1"></a>
+                </div>
+                <div class="col-sm-3">
+                    <a class="partner-box partner-box-2"></a>
+                </div>
+                <div class="col-sm-3">
+                    <a class="partner-box partner-box-3"></a>
+                </div>
+                <div class="col-sm-3">
+                    <a class="partner-box partner-box-4"></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <a class="partner-box partner-box-5"></a>
+                </div>
+                <div class="col-sm-3">
+                    <a class="partner-box partner-box-6"></a>
+                </div>
+                <div class="col-sm-3">
+                    <a class="partner-box partner-box-7"></a>
+                </div>
+                <div class="col-sm-3">
+                    <a class="partner-box partner-box-8"></a>
+                </div>
+            </div>   
+    </section>
+
+    <section id="faq" class="section faq"  style="display:none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Event FAQs</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> What is the price of the ticket ?</a>
+                                </h4>
+                            </div>
+
+                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <h3>Hello</h3>
+                                    <p>Lorem Ipsum</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
+                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> What is included in my ticket ?</a>
+                                </h4>
+                            </div>
+
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">Hello</div>
+                            </div>
+                        </div>
+  
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Office address ?</a>
+                                </h4>
+                            </div>
+
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">Hello</div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                                <h4 class="panel-title">
+                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> How should I dress ?</a>
+                                </h4>
+                            </div>
+
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                <div class="panel-body">Hello</div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFive">
+                                <h4 class="panel-title">
+                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> I have specific questions that are not addressed here. Who can help me ?</a>
+                                </h4>
+                            </div>
+
+                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                <div class="panel-body">Hello</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    {% if locaisdeinteresse %}
+    <section id="locaisdeinteresse" class="section photos" style="display:inline;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Locais de Interesse</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="grid">
+
+                        {% for item in locaisdeinteresse %}
+                            <li class="grid-item grid-item-sm-{{item.itemWidth}} center-block">
+                            <br />
+                                <h4>{{item.title}}</h4>
+                                <figure>
+                                    <img data-toggle="modal" data-target="#locaisdeinteresse-{{item.id}}" alt="{{item.title}} - Clique para Ver Mais" title="{{item.title}} - Clique para Ver Mais" class="img-responsive center-block" src="/media/{{item.image}}">
+                                </figure>
+                                <h4>{{item.lid1}}</h4>
+                                <p>{{item.lid2}}</p>
+                                <!-- Trigger the modal with a button -->
+                                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#locaisdeinteresse-{{item.id}}">Ver +</button>
+                            </li>
+
+                            <!-- Modal detalhe -->
+                            <div id="locaisdeinteresse-{{item.id}}" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title text-center">{{item.title}} - {{item.lid1}} - {{item.lid2}}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                      <figure>
+                                        <img alt="" class="img-responsive center-block" src="/media/{{item.image}}">
+                                    </figure>
+
+                                    <p style="text-transform:none; text-align: left !important;">{{item.content1|safe|linebreaks}}</p>
+
+                                    {#% if isLogged %#}
+                                        {% if item.content3 %}
+
+                                            <!-- Trigger the modal with a button -->
+                                            <p class="text-center">
+                                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#orador-cmn-{{item.id}}">Comunicaçáo</button>
+                                            </p>
+                                        {% endif %}
+                                    {#% endif %#}
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                            <!-- End Modal -->
+
+
+                        {% endfor %}
+                    </ul>
+                </div> <!-- Col -->
+            </div> <!-- Row -->
+        </div> <!-- Container -->
+    </section>
+    {% endif %}
+
+    <section id="localizacao" class="section location">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h3 class="section-title">Localização do Congresso <br /> - Hotel dos Templários, Tomar </h3>
+                    <address>
+                        <p>webSite: <a href="http://www.hoteldostemplarios.com/">Hotel dos Templários</a><br> <br> Largo Cândido dos Reis, 1 – Apartado 91 <br />
+2304-909 Tomar<br />
+Portugal <br />
+(LAT) 36.461, (LONG) 24.850 <br />
+
+Tel. + 351 249 310 100 | Fax + 351 249 322 191 <br />
+email: geral@hoteldostemplarios.pt<br> </p>
+                    </address>
+                </div>
+                <div class="col-sm-9">
+                <figure>
+                <a target="_BLANK" href="http://www.hoteldostemplarios.com/">
+                    <img title="Hotel dos Templários - Clique para vistiar o site" src="http://www.hoteldostemplarios.com/site_images/contents/contents/160/page/piscina_2.jpg?1438266688" />
+                </a>
+                </figure>
+                    <!--iframe src="http://www.google.com/maps/embed?pb=!1m18!1m12!nd made freely 1m3!1d96706.50013548559!2d-78.9870674333782!3d40.76030630398601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sbd!4v1436299406518" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contactos" class="section location">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <h3 class="section-title">{{contactos.title}}</h3>
+                    <h4 class="section-title">{{contactos.lid1 | safe}}</h4>
+
+                    <p>{{contactos.content1 | safe}}</p>
+
+                    <!--figure>
+                        <img alt="" class="img-responsive" src="{% static 'main/assets/images/about-us.jpg' %}">
+                    </figure-->
+
+                </div><!-- /.col-sm-6 -->
+
+                <div class="col-sm-6">
+
+                    <h3 class="section-title multiple-title">{{contactos.lid2 | safe}}</h3>
+
+                    <p>{{contactos.content2 | safe}}</p>
+
+
+                </div><!-- /.col-sm-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="site-info">Site created by ALUBRAT Portugal <br />Template Designed and <br> Developed by <a href="http://technextit.com">Technext Limited</a> and kindly made available for free - Thanks to them! :-)</p>
+                    <ul class="social-block">
+                        <li><a href=""><i class="ion-social-twitter"></i></a></li>
+                        <li><a href=""><i class="ion-social-facebook"></i></a></li>
+                        <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
+                        <li><a href=""><i class="ion-social-googleplus"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- script -->
+    <script src="{% static 'main/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'main/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'main/bower_components/smooth-scroll/dist/js/smooth-scroll.min.js' %}"></script>
+    <script src="{% static 'main/assets/js/main.js' %}"></script>
+</body>
+</html>
