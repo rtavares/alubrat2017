@@ -300,7 +300,7 @@
 
         <section id="CFP" class="section about" style="display:
         {% if cfp.loggedOnly == 1 %}
-            {% if  isLogged > 0 %}
+            {% if isLogged >= 0 %}
                 inline
             {% else %}
                 none
