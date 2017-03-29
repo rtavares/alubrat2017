@@ -297,13 +297,12 @@
     </section>
 
     {% if cfp %} <!-- Call For Papers-->
-        isLogged: {{isLogged}} cfp.loggedOnly {{cfp.loggedOnly}}
         <section id="CFP" class="section about" style="display:
         {% if cfp.loggedOnly == 1 %}
-            {% if isLogged >= 0 %}
-                inline
-            {% else %}
+            {% if isLogged < 1 %}
                 none
+            {% else %}
+                inline
             {% endif %}
         {% endif %}
         ;">
