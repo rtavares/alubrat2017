@@ -61,8 +61,6 @@ def index(request):
     except:
         cfp = {}
 
-    print "cfp: "
-    print cfp
     # --------------------------------------
     
     context = {
